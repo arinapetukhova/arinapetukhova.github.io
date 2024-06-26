@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Homework2</title>
+        <style>
+            body {
+                padding: 0 200px;
+                font-family: Trebuchet MS;
+            }
+            a {
+                color:black;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="title-container"></div>
+        <div id="image-container"></div>
+        <div id="alt-container"></div>
+        <script type="importmap">
+            {
+              "imports": {
+                "dayjs": "https://ga.jspm.io/npm:dayjs@1.11.11/dayjs.min.js",
+                "dayjs/plugin/relativeTime": "https://ga.jspm.io/npm:dayjs@1.11.11/esm/plugin/relativeTime/index.js"
+              }
+            }
+        </script>                   
+        <script type="module" src="bundle.js">
+        </script>
+    </body>
+</html>
