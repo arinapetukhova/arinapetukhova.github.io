@@ -1,12 +1,10 @@
 import { Params } from "./params"; 
 import { JSONValue } from "./jsonValue";
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
+import { format, formatDistance, formatRelative, getDate } from 'date-fns'
 import { Check } from "./check";
 import { JSONArray } from "./jsonArray";
 
 let params: Params = new Params();
-dayjs.extend(relativeTime);
 params.append('email', "a.petuhova@innopolis.university");
 fetch('https://fwd.innopolis.university/api/hw2?' + params.toString())
     .then((response: Response) => {
@@ -26,7 +24,7 @@ fetch('https://fwd.innopolis.university/api/hw2?' + params.toString())
             .then((data: JSONArray) => {
                 let year: number = Number(data.year), month: number = Number(data.month), day: number = Number(data.day)
                 const d: Date = new Date(year, month, day)
-                console.log(dayjs(d).fromNow())
+                console.log(formatDistance(d, new Date()))
                 if (typeof document !== 'undefined') {
                     const titleContainer = document.getElementById("title-container") as HTMLElement
                     const imageElement = document.createElement("img") as HTMLImageElement
@@ -48,7 +46,7 @@ fetch('https://fwd.innopolis.university/api/hw2?' + params.toString())
                     finalDate.textContent = d.toLocaleDateString()
                     titleContainer.appendChild(finalDate)
                     const frNow = document.createElement("h4") as HTMLHeadingElement
-                    frNow.textContent = dayjs(d).fromNow()
+                    frNow.textContent = formatDistance(d, new Date())
                     titleContainer.appendChild(frNow)
                  }
             })

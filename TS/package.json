@@ -16,7 +16,7 @@
     "tslib": "^2.6.3"
   },
   "dependencies": {
-    "dayjs": "^1.11.11",
+    "date-fns": "^3.6.0",
     "node-fetch": "^3.3.2",
     "typescript": "^5.5.2"
   }

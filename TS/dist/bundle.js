@@ -1,5 +1,4 @@
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
+import { formatDistance } from 'date-fns';
 
 class Params {
     atr = new URLSearchParams();
@@ -19,7 +18,6 @@ function Check(resp) {
 }
 
 let params = new Params();
-dayjs.extend(relativeTime);
 params.append('email', "a.petuhova@innopolis.university");
 fetch('https://fwd.innopolis.university/api/hw2?' + params.toString())
     .then((response) => {
@@ -39,7 +37,7 @@ fetch('https://fwd.innopolis.university/api/hw2?' + params.toString())
         .then((data) => {
         let year = Number(data.year), month = Number(data.month), day = Number(data.day);
         const d = new Date(year, month, day);
-        console.log(dayjs(d).fromNow());
+        console.log(formatDistance(d, new Date()));
         if (typeof document !== 'undefined') {
             const titleContainer = document.getElementById("title-container");
             const imageElement = document.createElement("img");
@@ -58,7 +56,7 @@ fetch('https://fwd.innopolis.university/api/hw2?' + params.toString())
             finalDate.textContent = d.toLocaleDateString();
             titleContainer.appendChild(finalDate);
             const frNow = document.createElement("h4");
-            frNow.textContent = dayjs(d).fromNow();
+            frNow.textContent = formatDistance(d, new Date());
             titleContainer.appendChild(frNow);
         }
     })
