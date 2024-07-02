@@ -20,7 +20,7 @@ jobs:
 
       - name: Test 🚨
         run: |
-          npm lint
+          npm run lint
           npm format
           
       - name: Build 🏗️
