@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Homework2</title>
+        <style>
+            body {
+                padding: 0 200px;
+                font-family: Trebuchet MS;
+            }
+            a {
+                color:black;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="title-container"></div>
+        <div id="image-container"></div>
+        <div id="alt-container"></div>
+        <script>
+            const params = new URLSearchParams();
+            params.append('email', "a.petuhova@innopolis.university")
+            console.log('https://fwd.innopolis.university/api/hw2?' + params.toString())
+            fetch('https://fwd.innopolis.university/api/hw2?' + params.toString())
+                .then(response => {
+                    if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const params2 = new URLSearchParams()
+                    params2.append('id', data)
+                    fetch('https://fwd.innopolis.university/api/comic?' + params2.toString())
+                        .then(response => {
+                            if (!response.ok) {
+                            throw new Error('Network response was not ok')
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            let year, month, day
+                            const titleContainer = document.getElementById("title-container")
+                            for (var key in data) {
+                                if (key === "img") {
+                                    console.log(data[key])
+                                    const imageElement = document.createElement("img")
+                                    imageElement.src = data[key]
+                                    const container = document.getElementById("image-container")
+                                    container.appendChild(imageElement)
+                                } else if (key === "safe_title") {
+                                    const title = document.createElement("h1")
+                                    title.textContent = data[key]
+                                    titleContainer.appendChild(title)
+                                } else if (key === "year") {
+                                    year = data[key]
+                                } else if (key === "month") {
+                                    month = data[key]
+                                } else if (key === "day") {
+                                    day = data[key]
+                                } else if (key === "alt") {
+                                    const altText = document.createElement("p")
+                                    altText.textContent = data[key]
+                                    const altContainer = document.getElementById("alt-container")
+                                    altContainer.appendChild(altText)
+                                }
+                            }
+                            const d = new Date(year, month, day)
+                            const finalDate = document.createElement("h4")
+                            finalDate.textContent = d.toLocaleDateString()
+                            titleContainer.appendChild(finalDate)
+                        })
+                        .catch(error => {
+                            console.error('There was a problem with the fetch operation:', error);
+                        })
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error)
+                })
+        </script>
+        <p>
+            <a href="./index.html">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+                </svg>
+            </a>
+        </p>
+    </body>
+</html>
