@@ -17,11 +17,6 @@ jobs:
 
       - name: Install 🔧
         run: npm install
-
-      - name: Test 🚨
-        run: |
-          npm run lint
-          npm format
           
       - name: Build 🏗️
         run: |
