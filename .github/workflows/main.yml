@@ -3,7 +3,7 @@ name: Build and deploy
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build:
@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@master
+        uses: actions/checkout@main
         with:
           persist-credentials: false
 
@@ -20,13 +20,13 @@ jobs:
 
       - name: Test 🚨
         run: |
-          npm lint
-          npm format
+          npm run lint
+          npm run format
           
       - name: Build 🏗️
         run: |
           npm clean
-          npm build
+          npm run build
       - name: Deploy to GH Pages 🚀
         uses: peaceiris/actions-gh-pages@v3
         with:
